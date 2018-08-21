@@ -9,7 +9,6 @@ import spark.template.velocity.VelocityTemplateEngine;
 import java.util.HashMap;
 import java.util.List;
 
-import static spark.Spark.delete;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
@@ -38,11 +37,11 @@ public class ManagersController {
 //        NEW
         get("/managers/new", (req, res) -> {
 
-            List<Department> alldepartments = DBHelper.getAll(Department.class);
+            List<Department> allDepartments = DBHelper.getAll(Department.class);
 
             HashMap<String, Object> model = new HashMap<>();
             model.put("template", "templates/managers/create.vtl");
-            model.put("allDepartments", alldepartments);
+            model.put("allDepartments", allDepartments);
 
             return new ModelAndView(model, "templates/layout.vtl");
 
@@ -84,24 +83,24 @@ public class ManagersController {
         }, velocityTemplateEngine);
 
 //        EDIT
-        get("managers/:id/edit", (req, res) -> {
+        get("/managers/:id/edit", (req, res) -> {
 
             int managerId = Integer.parseInt(req.params(":id"));
             Manager editingManager = DBHelper.find(managerId, Manager.class);
 
-            List<Department> alldepartments = DBHelper.getAll(Department.class);
+            List<Department> allDepartments = DBHelper.getAll(Department.class);
 
             HashMap<String, Object> model = new HashMap<>();
             model.put("template", "templates/managers/edit.vtl");
             model.put("editingManager", editingManager);
-            model.put("allDepartments", alldepartments);
+            model.put("allDepartments", allDepartments);
 
             return new ModelAndView(model, "templates/layout.vtl");
 
         }, velocityTemplateEngine);
 
 //        UPDATE
-        post("managers/:id", (req, res) -> {
+        post("/managers/:id", (req, res) -> {
 
             int departmentId = Integer.parseInt(req.queryParams("department"));
             Department department = DBHelper.find(departmentId, Department.class);
@@ -122,7 +121,7 @@ public class ManagersController {
             updatingManager.setBudget(budget);
             DBHelper.save(updatingManager);
 
-            res.redirect("/managers/");
+            res.redirect("/managers");
             return null;
 
         }, velocityTemplateEngine);
@@ -132,14 +131,12 @@ public class ManagersController {
 
             int managerId = Integer.parseInt(req.params(":id"));
 
-            Manager deletingManager = DBHelper.find(managerId, Manager.class);
-
-            DBHelper.delete(deletingManager);
+            DBHelper.deleteById(managerId, Manager.class);
 
             res.redirect("/managers");
             return null;
 
-        }, velocityTemplateEngine);
+        });
 
 
     }

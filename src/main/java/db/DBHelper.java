@@ -91,6 +91,12 @@ public class DBHelper {
         }
     }
 
+    public static void deleteById(int id, Class classType){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Object thingToDelete = find(id, classType);
+        delete(thingToDelete);
+    }
+
     public static <T> List<T> getAll(Class classType) {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(classType);

@@ -1,4 +1,7 @@
 <p class="pageHeader">$foundManager.getFirstName() $foundManager.getLastName()</p>
 
 <a href="/managers/$foundManager.getId()/edit">Edit</a>
-<a href="/managers/$foundManager.getId()/delete">Delete</a>
+
+<form action="/managers/$foundManager.getId()/delete" method="post">
+    <input type="submit" value="Delete">
+</form>
