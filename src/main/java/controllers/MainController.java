@@ -7,7 +7,7 @@ public class MainController {
 
     public static void main(String[] args) {
 
-        Seeds.seedData();
+//        Seeds.seedData();
 
         //        allows / on the end of path, taken from Stack Overflow: https://stackoverflow.com/questions/34753001/spark-framework-match-with-or-without-trailing-slash
 

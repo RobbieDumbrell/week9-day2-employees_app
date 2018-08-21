@@ -1,0 +1,26 @@
+<p class="pageHeader">Edit Manager: $editingManager.getFirstName() $editingManager.getLastName()</p>
+
+<form action="/managers/$editingManager.getId()" method="post">
+
+    <label for="firstName">First Name:</label>
+    <input type="text" class="inputbox" name="firstName" required="true" id="firstName" value="$editingManager.getFirstName()">
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" class="inputbox" name="lastName" required="true" id="lastName" value="$editingManager.getLastName()">
+
+    <label for="salary">Salary:</label>
+    <input type="number" class="inputbox" name="salary" required="true" id="salary" value="$editingManager.getSalary()">
+
+    <label for="department">Department:</label>
+    <select class="dropdown" required="true" name="department" id="department" value="$editingManager.getDepartment().getTitle()">
+        #foreach ($department in $allDepartments)
+        <option value="$department.getId()">$department.getTitle()</option>
+        #end
+    </select>
+
+    <label for="budget">Budget:</label>
+    <input type="number" class="inputbox" name="budget" required="true" id="budget" value="$editingManager.getBudget()">
+
+    <input type="submit" class="button" value="Update">
+
+</form>
